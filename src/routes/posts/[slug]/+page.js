@@ -5,6 +5,7 @@ export const load = ({ params }) => {
   
   console.log(slug)
   return {
-    slug
+    slug,
+    title: 'ala ma kota'
   }
 }

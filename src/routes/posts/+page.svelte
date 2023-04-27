@@ -41,6 +41,12 @@
 
 <div class="grid grid-cols-3 gap-8 w-4/5 mx-auto">
   {#each posts as post}
-    <Post {...post} on:delete={onDelete} />
+    <Post {...post} on:delete={onDelete}>
+      {post.abstract}
+
+      <svelte:fragment slot="tags">
+        sjdfldksjflsdkjf lskjf aslkjfd
+      </svelte:fragment>
+    </Post>
   {/each}
 </div>

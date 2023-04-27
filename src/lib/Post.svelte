@@ -1,6 +1,6 @@
 <!-- @format -->
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
 
   export let title = "Ala ma kota";
   export let slug;
@@ -10,13 +10,23 @@
   const onDelete = () =>{
     dispatch('delete', slug)
   }
+
+  onMount(async () => {
+
+  })
 </script>
 <div class="border border-stone-600 bg-stone-200 drop-shadow-md p-4">
   <a href={`/posts/${slug}/`} class="">
     <h2>{title} {slug}</h2>
 
     <div class="text-sm">
-      <slot />
+      <slot>
+        <div>brak abstractu</div>
+      </slot>
+    </div>
+
+    <div class="bg-red-500">
+      <slot name="tags"></slot>
     </div>
   </a>
 
