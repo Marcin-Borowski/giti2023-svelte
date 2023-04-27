@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client'
 
-
 export const load = async () => {
 
   const prisma = new PrismaClient()
@@ -16,10 +15,21 @@ export const load = async () => {
     }
   })
 
+  await prisma.$disconnect();
+
 
   return {
     posts
   }
 }
 
+export const actions = {
   
+  'create': () => {
+    console.log('create')
+  },
+  'inna': () => {
+    console.log('inna')
+  }
+  
+}
