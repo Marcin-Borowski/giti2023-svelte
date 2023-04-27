@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import slugify from 'slugify';
 
 export const load = async () => {
 
@@ -25,11 +26,39 @@ export const load = async () => {
 
 export const actions = {
   
-  'create': () => {
-    console.log('create')
+  'create': async ({ request }) => {
+    const data = await request.formData();
+
+    const title = data.get('title');
+    const abstract = data.get('abstract');
+
+    const prisma = new PrismaClient()
+
+    await prisma.post.create({
+      data: {
+        title,
+        slug: slugify(title, {lower: true, locale: "pl"}),
+        abstract,
+      }
+    })
+
+    const posts = await prisma.post.findMany({
+      select: {
+        slug: true,
+        title: true,
+        abstract: true
+      },
+      where: {
+        active: true
+      }
+    })
+
+    await prisma.$disconnect();
+
+    return {posts}    
   },
-  'inna': () => {
+  'inna': (event) => {
     console.log('inna')
   }
-  
+
 }
