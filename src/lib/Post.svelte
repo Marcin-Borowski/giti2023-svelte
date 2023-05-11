@@ -16,7 +16,7 @@
   })
 </script>
 <div class="border border-stone-600 bg-stone-200 drop-shadow-md p-4">
-  <a href={`/posts/${slug}/`} class="">
+  <a href={`/posts/${slug}/`} class="" data-sveltekit-reload>
     <h2>{title} {slug}</h2>
 
     <div class="text-sm">
