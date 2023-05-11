@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  app:
+    container_name: front
+    restart: unless-stopped
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend/prisma:/usr/local/app/prisma    
+    networks:
+      - cos
+
+  portainer:
+    image: portainer/portainer
+    privileged: true
+    volumes:
+      - './portainer:/data'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    restart: unless-stopped
+    networks:
+      - cos
+
+  # nrpm:
+  #   image: 'jc21/nginx-proxy-manager:latest'
+  #   restart: unless-stopped
+  #   ports:
+  #     - '80:80' # Public HTTP Port
+  #     - '443:443' # Public HTTPS Port
+  #     - '81:81' # Admin Web Port
+  #   volumes:
+  #     - ./nrpm:/data
+  #     - ./letsencrypt:/etc/letsencrypt
+  #   networks:
+  #     - cos
+
+
+networks:
+  cos:
+    driver: bridge
